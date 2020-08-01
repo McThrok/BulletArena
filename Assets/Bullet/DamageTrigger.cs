@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class DamageTrigger : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
+	// Start is called before the first frame update
+	void Start()
+	{
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
+	// Update is called once per frame
+	void Update()
+	{
+	}
 	private void OnTriggerEnter(Collider other)
 	{
-       other.gameObject.GetComponentInParent<Enemy>()?.Hit();
+		if (other.gameObject.GetComponent<DamageTrigger>() != null)
+			return;
+
+		other.gameObject.GetComponentInParent<Enemy>()?.Hit();
+		Destroy(gameObject.transform.parent.gameObject);
 	}
 }
