@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-	// Start is called before the first frame update
 	void Start()
 	{
+		GetComponent<Rigidbody>().velocity = transform.forward  * 25f;
 		Destroy(this.gameObject, 3.0f);
-	}
-
-	// Update is called once per frame
-	void Update()
-	{
-		transform.position += transform.forward * Time.deltaTime * 25f;
 	}
 }
