@@ -20,18 +20,15 @@ public class Spawner : MonoBehaviour
 	void Update()
 	{
 		currentSpawnTime += Time.deltaTime;
-		while(currentSpawnTime>=spawnTime)
+		while (currentSpawnTime >= spawnTime)
 		{
 			currentSpawnTime -= spawnTime;
-
 			var go = Instantiate(enemy, GetSpawnPosition(), Quaternion.identity);
-			go.GetComponent<Enemy>().Player = player;
-
 		}
 	}
 	Vector3 GetSpawnPosition()
 	{
 		Random.Range(-10, 10);
-		return new Vector3(Random.Range(-10, 10),0, Random.Range(-10, 10));
+		return new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10));
 	}
 }

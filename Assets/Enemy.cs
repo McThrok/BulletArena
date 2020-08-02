@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public Player Player;
+    //public Player Player;
 
     int Hp = 50;
     // Start is called before the first frame update
@@ -17,24 +17,18 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Player == null)
-            return;
-
-        Movement();
-    }
-
-	private void Movement()
-	{
-        var toPlayer = Player.transform.position - transform.position;
-        transform.rotation = Quaternion.FromToRotation(Vector3.forward, toPlayer);
-        transform.position += transform.forward * Time.deltaTime * 2;
-
 	}
 
-	public void Hit()
+
+	public void Hit(int damage)
 	{
-        Hp -= 10;
+        Hp -= damage;
         if (Hp <= 0)
+            Die();
+	}
+
+    private void Die()
+	{
             Destroy(this.gameObject);
 	}
 }

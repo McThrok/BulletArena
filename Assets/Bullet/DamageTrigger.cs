@@ -18,7 +18,7 @@ public class DamageTrigger : MonoBehaviour
 		if (other.gameObject.GetComponent<DamageTrigger>() != null)
 			return;
 
-		other.gameObject.GetComponentInParent<Enemy>()?.Hit();
+		other.gameObject.GetComponentInParent<Enemy>()?.Hit(10);
 		Destroy(gameObject.transform.parent.gameObject);
 	}
 }

@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
 	GameObject a;
 	float shotTime = 0.1f;
 	float currentShotTime = 0;
+	int hp = 50;
 	void Start()
 	{
 		a = Instantiate(weapon, transform);
@@ -51,15 +52,18 @@ public class Player : MonoBehaviour
 		if (currentShotTime <= 0 && Input.GetMouseButton(0))
 		{
 			currentShotTime += shotTime;
-			//var pos = transform.position + transform.rotation * new Vector3(0, 0, 0.5f);
-			//var b = Instantiate(bullet, pos, transform.rotation);
-
-			//var colors = new List<Color> { Color.black, Color.white };
-			//var idx = (int)Random.Range(0, 2);
-			//b.GetComponentInChildren<Renderer>().material.color = colors[idx];
 			a.GetComponent<Minigun>().Shoot();
 
 		}
 		currentShotTime = Mathf.Max(currentShotTime, 0);
+	}
+	public void Hit(int damage)
+	{
+		hp -= damage;
+		if (hp <= 0)
+			Die();
+	}
+	private void Die()
+	{
 	}
 }
