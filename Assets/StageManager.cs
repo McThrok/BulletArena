@@ -32,7 +32,6 @@ public class StageManager : MonoBehaviour
 		}
 
 		enemyList = enemyList.Where(x => x != null).ToList();
-		Debug.Log(enemyList.Count);
 		if (enemyList.Count == 0 && enemies == 0)
 			SceneManager.LoadScene("MenuScene");
 

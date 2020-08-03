@@ -45,6 +45,7 @@ public class Player : MonoBehaviour
 	private void FixedUpdate()
 	{
 		GetComponent<Rigidbody>().MoveRotation(moveRot);
+		//transform.rotation = moveRot;
 		if (moveDir.sqrMagnitude == 0)
 			return;
 
@@ -53,6 +54,7 @@ public class Player : MonoBehaviour
 		newPos.x = Mathf.Clamp(newPos.x, -19.5f, 19.5f);
 		newPos.z = Mathf.Clamp(newPos.z, -19.5f, 19.5f);
 		GetComponent<Rigidbody>().MovePosition(newPos);
+		//transform.position = newPos;
 	}
 
 	void Shoot()
