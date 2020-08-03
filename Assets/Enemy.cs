@@ -5,30 +5,30 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    //public Player Player;
+	//public Player Player;
 
-    int Hp = 50;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	int Hp = 50;
+	// Start is called before the first frame update
+	void Start()
+	{
 
-    // Update is called once per frame
-    void Update()
-    {
+	}
+
+	// Update is called once per frame
+	void Update()
+	{
 	}
 
 
 	public void Hit(int damage)
 	{
-        Hp -= damage;
-        if (Hp <= 0)
-            Die();
+		Hp -= damage;
+		if (Hp <= 0)
+			Die();
 	}
 
-    private void Die()
+	private void Die()
 	{
-            Destroy(this.gameObject);
+		Destroy(this.gameObject);
 	}
 }
