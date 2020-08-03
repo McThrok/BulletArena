@@ -8,7 +8,7 @@ public class SmoothCamera : MonoBehaviour
 	Transform tr;
 
 	Vector3 velocity;
-	float smoothTime = 0.3F;
+	float smoothTime = 0.2F;
 	private void Awake()
 	{
 		tr = transform;

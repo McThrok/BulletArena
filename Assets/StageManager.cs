@@ -19,11 +19,10 @@ public class StageManager : MonoBehaviour
 		player = GameObject.Find("Player")?.GetComponent<Player>();
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
 		currentSpawnTime += Time.deltaTime;
-		while (currentSpawnTime >= spawnTime && enemies>0)
+		while (currentSpawnTime >= spawnTime && enemies > 0)
 		{
 			currentSpawnTime -= spawnTime;
 			var go = Instantiate(enemy, GetSpawnPosition(), Quaternion.identity);
@@ -33,12 +32,25 @@ public class StageManager : MonoBehaviour
 
 		enemyList = enemyList.Where(x => x != null).ToList();
 		if (enemyList.Count == 0 && enemies == 0)
-			SceneManager.LoadScene("MenuScene");
+			SceneManager.LoadScene("ShopMenu");
 
 	}
 	Vector3 GetSpawnPosition()
 	{
 		Random.Range(-10, 10);
 		return new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10));
+	}
+}
+
+public class StageData
+{
+	public bool NewGame = true;
+	public int Round;
+	public int MinigunLvl;
+
+	public void Reset()
+	{
+		Round = 1;
+		MinigunLvl = 1;
 	}
 }
