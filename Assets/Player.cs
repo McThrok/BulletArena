@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
-	// Start is called before the first frame update
 	[SerializeField] Transform target;
 	[SerializeField] GameObject bullet;
 	[SerializeField] GameObject weapon;
@@ -19,33 +19,42 @@ public class Player : MonoBehaviour
 		a.GetComponent<Minigun>().Level = 2;
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
 		Movement();
-		Target();
 		Shoot();
 	}
+	Vector3 moveDir= Vector3.zero;
+	Quaternion moveRot = Quaternion.identity;
 	void Movement()
 	{
-		float speed = 12f;
-		Vector3 dir = Vector3.zero;
+		moveDir = Vector3.zero;
 
 		if (Input.GetKey(KeyCode.A))
-			dir += Vector3.left;
+			moveDir += Vector3.left;
 		if (Input.GetKey(KeyCode.D))
-			dir += Vector3.right;
+			moveDir += Vector3.right;
 		if (Input.GetKey(KeyCode.W))
-			dir += Vector3.forward;
+			moveDir += Vector3.forward;
 		if (Input.GetKey(KeyCode.S))
-			dir += Vector3.back;
+			moveDir += Vector3.back;
 
-		transform.position += dir.normalized * speed * Time.deltaTime;
+		moveRot = Quaternion.FromToRotation(Vector3.forward, target.position - transform.position);
+
 	}
-	void Target()
+	private void FixedUpdate()
 	{
-		transform.rotation = Quaternion.FromToRotation(Vector3.forward, target.position - transform.position);
+		GetComponent<Rigidbody>().MoveRotation(moveRot);
+		if (moveDir.sqrMagnitude == 0)
+			return;
+
+		float speed = 12f;
+		var newPos = transform.position + moveDir.normalized * speed * Time.fixedDeltaTime;
+		newPos.x = Mathf.Clamp(newPos.x, -19.5f, 19.5f);
+		newPos.z = Mathf.Clamp(newPos.z, -19.5f, 19.5f);
+		GetComponent<Rigidbody>().MovePosition(newPos);
 	}
+
 	void Shoot()
 	{
 		currentShotTime -= Time.deltaTime;
@@ -53,7 +62,6 @@ public class Player : MonoBehaviour
 		{
 			currentShotTime += shotTime;
 			a.GetComponent<Minigun>().Shoot();
-
 		}
 		currentShotTime = Mathf.Max(currentShotTime, 0);
 	}
