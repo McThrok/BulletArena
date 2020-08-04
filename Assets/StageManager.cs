@@ -44,13 +44,15 @@ public class StageManager : MonoBehaviour
 
 public class StageData
 {
-	public int Round;
+	public int Number;
 	public int MinigunLvl;
+	public int Gold;
 
 	public void Reset()
 	{
-		Round = 1;
+		Number = 1;
 		MinigunLvl = 1;
+		Gold = 0;
 	}
 
 	static StageData instance;

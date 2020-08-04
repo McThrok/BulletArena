@@ -5,16 +5,12 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-	//public Player Player;
-
 	int Hp = 50;
-	// Start is called before the first frame update
 	void Start()
 	{
 
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
 	}
@@ -29,6 +25,7 @@ public class Enemy : MonoBehaviour
 
 	private void Die()
 	{
+		StageData.GetInstance().Gold += 10;
 		Destroy(this.gameObject);
 	}
 }
