@@ -15,8 +15,7 @@ public class Player : MonoBehaviour
 	int hp = 50;
 	void Start()
 	{
-		a = Instantiate(weapon, transform);
-		a.GetComponent<Minigun>().Level = 2;
+		a = WeaponManager.Instance.GetWeapon(transform).gameObject;
 	}
 
 	void Update()

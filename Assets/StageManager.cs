@@ -44,7 +44,6 @@ public class StageManager : MonoBehaviour
 
 public class StageData
 {
-	public bool NewGame = true;
 	public int Round;
 	public int MinigunLvl;
 
@@ -52,5 +51,17 @@ public class StageData
 	{
 		Round = 1;
 		MinigunLvl = 1;
+	}
+
+	static StageData instance;
+	public static StageData GetInstance()
+	{
+		if (instance == null)
+		{
+			instance = new StageData();
+			instance.Reset();
+		}
+
+		return instance;
 	}
 }

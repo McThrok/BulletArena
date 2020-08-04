@@ -304,8 +304,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 487025821}
-  m_LocalRotation: {x: -0, y: -0.60690325, z: -0, w: 0.7947757}
-  m_LocalPosition: {x: -1.87, y: 0, z: 1.07}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -668,7 +668,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 60, z: -5}
+  m_LocalPosition: {x: 0, y: 60, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -908,6 +908,7 @@ GameObject:
   - component: {fileID: 2058824217}
   - component: {fileID: 2058824216}
   - component: {fileID: 2058824218}
+  - component: {fileID: 2058824219}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -955,6 +956,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 4371357512002890190, guid: 34e5a3f564e62424ab25a09d15808482, type: 3}
+--- !u!114 &2058824219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058824215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaaffcf2e1b8f0f45814ca4c4eb57846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Minigun: {fileID: 7186605262604515054, guid: e354919db1ee61f48a41940e54435b3d, type: 3}
 --- !u!1001 &391037404999141474
 PrefabInstance:
   m_ObjectHideFlags: 0
