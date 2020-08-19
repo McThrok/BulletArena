@@ -20,14 +20,17 @@ public class Player : MonoBehaviour
 
 	void Update()
 	{
-		Movement();
 		Shoot();
 	}
-	Vector3 moveDir= Vector3.zero;
-	Quaternion moveRot = Quaternion.identity;
+	private void FixedUpdate()
+	{
+		Movement();
+	}
 	void Movement()
 	{
-		moveDir = Vector3.zero;
+		transform.rotation = Quaternion.FromToRotation(Vector3.forward, target.position - transform.position);
+
+		var moveDir = Vector3.zero;
 
 		if (Input.GetKey(KeyCode.A))
 			moveDir += Vector3.left;
@@ -38,22 +41,14 @@ public class Player : MonoBehaviour
 		if (Input.GetKey(KeyCode.S))
 			moveDir += Vector3.back;
 
-		moveRot = Quaternion.FromToRotation(Vector3.forward, target.position - transform.position);
-
-	}
-	private void FixedUpdate()
-	{
-		GetComponent<Rigidbody>().MoveRotation(moveRot);
-		//transform.rotation = moveRot;
 		if (moveDir.sqrMagnitude == 0)
 			return;
 
 		float speed = 12f;
-		var newPos = transform.position + moveDir.normalized * speed * Time.fixedDeltaTime;
+		var newPos = transform.position + moveDir.normalized * speed * Time.deltaTime;
 		newPos.x = Mathf.Clamp(newPos.x, -19.5f, 19.5f);
 		newPos.z = Mathf.Clamp(newPos.z, -19.5f, 19.5f);
-		GetComponent<Rigidbody>().MovePosition(newPos);
-		//transform.position = newPos;
+		transform.position = newPos;
 	}
 
 	void Shoot()
