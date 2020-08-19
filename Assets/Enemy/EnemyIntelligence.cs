@@ -12,18 +12,26 @@ public class EnemyIntelligence : MonoBehaviour
 	private float speed = 3.0f;
 
 	private float backTime = 1;
-	private float attackTime = 0.05f;
+	private float attackTime = 0.1f;
 	private float currentTime = 0;
-	private float attackDist = 0.5f;
+	private float attackDist = 0.3f;
+
+	Vector3 playerPos;
 
 	void Start()
 	{
-		player = PlayerManager.Instance.Player.GetComponent<Player>();
+		if (PlayerManager.Instance.Player != null)
+			player = PlayerManager.Instance.Player.GetComponent<Player>();
 		enemyTr = EnemyBody.transform;
 	}
 
 	void Update()
 	{
+		if (player == null)
+			state = State.Idle;
+		else
+			playerPos = player.transform.position;
+
 		switch (state)
 		{
 			case State.Idle: HandleIdle(); return;
@@ -39,18 +47,18 @@ public class EnemyIntelligence : MonoBehaviour
 	}
 	private void HandleFollow()
 	{
-		var toPlayer = player.transform.position - enemyTr.position;
-		if (toPlayer.magnitude < 1f)
+		var toPlayer = playerPos - enemyTr.position;
+		enemyTr.rotation = Quaternion.FromToRotation(Vector3.forward, toPlayer);
+
+		if (toPlayer.magnitude < 2f)
 			state = State.Attack;
 		else
-		{
-			enemyTr.rotation = Quaternion.FromToRotation(Vector3.forward, toPlayer);
 			enemyTr.position += enemyTr.forward * Time.deltaTime * speed;
-		}
 	}
 	private void HandleAttack()
 	{
-		enemyTr.position += (attackDist/attackTime) * enemyTr.forward * Time.deltaTime;
+		var dist = attackDist + (playerPos - enemyTr.position).magnitude;
+		enemyTr.position += (dist / attackTime) * enemyTr.forward * Time.deltaTime;
 
 		currentTime += Time.deltaTime;
 		if (currentTime >= attackTime)
@@ -62,7 +70,7 @@ public class EnemyIntelligence : MonoBehaviour
 	}
 	private void HandleBack()
 	{
-		enemyTr.position -= (attackDist / backTime) * enemyTr.forward * Time.deltaTime;
+		enemyTr.position -= ((attackDist + 1) / backTime) * enemyTr.forward * Time.deltaTime;
 
 		currentTime += Time.deltaTime;
 		if (currentTime >= backTime)

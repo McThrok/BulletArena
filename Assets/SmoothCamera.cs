@@ -19,8 +19,11 @@ public class SmoothCamera : MonoBehaviour
 	}
 	private void FixedUpdate()
 	{
-		var pos = player.position;
-		pos.y = tr.position.y;
-		tr.position = Vector3.SmoothDamp(tr.position, pos, ref velocity, smoothTime);
+		if (player != null)
+		{
+			var pos = player.position;
+			pos.y = tr.position.y;
+			tr.position = Vector3.SmoothDamp(tr.position, pos, ref velocity, smoothTime);
+		}
 	}
 }

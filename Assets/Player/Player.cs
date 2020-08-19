@@ -2,20 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
 	[SerializeField] Transform target;
 	[SerializeField] GameObject bullet;
 	[SerializeField] GameObject weapon;
+	[SerializeField] GameObject hpBar;
+
+	Slider hpSlider;
+
 	GameObject a;
 	float shotTime = 0.1f;
 	float currentShotTime = 0;
 	int hp = 50;
+	int maxHp = 50;
 	void Start()
 	{
 		a = WeaponManager.Instance.GetWeapon(transform).gameObject;
+		hpSlider = hpBar.GetComponent<Slider>();
+		hpSlider.value = 1;
+		maxHp = hp;
 	}
 
 	void Update()
@@ -64,10 +72,13 @@ public class Player : MonoBehaviour
 	public void Hit(int damage)
 	{
 		hp -= damage;
-		if (hp <= 0)
+		hp = Mathf.Max(0, hp);
+		hpSlider.value = 1.0f * hp / maxHp;
+		if (hp == 0)
 			Die();
 	}
 	private void Die()
 	{
+		Destroy(this.gameObject);
 	}
 }

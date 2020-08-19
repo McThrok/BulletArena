@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour
 	public void Hit(int damage)
 	{
 		hp -= damage;
-		hp = Math.Max(0, hp);
+		hp = Mathf.Max(0, hp);
 		if (hp == 0)
 			Die();
 	}
