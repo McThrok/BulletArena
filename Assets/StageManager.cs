@@ -4,34 +4,42 @@ using UnityEngine;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using System.Threading;
 
 public class StageManager : MonoBehaviour
 {
+	[SerializeField] List<LevelData> Levels;
 	[SerializeField] GameObject enemy;
 	Player player;
 
-	float spawnTime = 3;
+	int enemiesToSpawn;
 	float currentSpawnTime = 0;
-	int enemies = 3;
 	List<GameObject> enemyList = new List<GameObject>();
+
 	void Start()
 	{
 		player = PlayerManager.Instance.Player.GetComponent<Player>();
+		var sd = StageData.GetInstance();
+		sd.LoadNextLevel(Levels[sd.Number]);
+		enemiesToSpawn = sd.LevelData.EnemyCount;
 	}
 
 	void Update()
 	{
+		var sd = StageData.GetInstance();
+		var spawnTime = sd.LevelData.SpawnTime;
+
 		currentSpawnTime += Time.deltaTime;
-		while (currentSpawnTime >= spawnTime && enemies > 0)
+		while (currentSpawnTime >= spawnTime && enemiesToSpawn > 0)
 		{
 			currentSpawnTime -= spawnTime;
 			var go = Instantiate(enemy, GetSpawnPosition(), Quaternion.identity);
-			enemies--;
+			enemiesToSpawn--;
 			enemyList.Add(go);
 		}
 
 		enemyList = enemyList.Where(x => x != null).ToList();
-		if (enemyList.Count == 0 && enemies == 0)
+		if (enemyList.Count == 0 && enemiesToSpawn == 0)
 			SceneManager.LoadScene("ShopMenu");
 
 	}
@@ -47,10 +55,11 @@ public class StageData
 	public int Number;
 	public int MinigunLvl;
 	public int Gold;
+	public LevelData LevelData;
 
 	public void Reset()
 	{
-		Number = 1;
+		Number = 0;
 		MinigunLvl = 1;
 		Gold = 0;
 	}
@@ -65,5 +74,11 @@ public class StageData
 		}
 
 		return instance;
+	}
+
+	public void LoadNextLevel(LevelData data)
+	{
+		Number++;
+		LevelData = data;
 	}
 }
