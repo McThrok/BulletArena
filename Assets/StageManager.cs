@@ -16,7 +16,7 @@ public class StageManager : MonoBehaviour
 	List<GameObject> enemyList = new List<GameObject>();
 	void Start()
 	{
-		player = GameObject.Find("Player")?.GetComponent<Player>();
+		player = PlayerManager.Instance.Player.GetComponent<Player>();
 	}
 
 	void Update()

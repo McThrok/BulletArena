@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class EnemyIntelligence : MonoBehaviour
 {
+	public GameObject EnemyBody;
+	Transform tr;
+	Rigidbody rb;
+
 	State state = State.Idle;
 	Player player;
 	float backTime = 1;
 	float currentBackTime = 1;
-	// Start is called before the first frame update
 	void Start()
 	{
 		player = PlayerManager.Instance.Player.GetComponent<Player>();
+		tr = EnemyBody.transform;
+		rb = EnemyBody.GetComponent<Rigidbody>();
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
 		if (state == State.Idle)
@@ -24,13 +28,13 @@ public class EnemyIntelligence : MonoBehaviour
 		}
 		else if (state == State.Follow)
 		{
-			var toPlayer = player.transform.position - transform.position;
+			var toPlayer = player.transform.position - tr.position;
 			if (toPlayer.magnitude < 1f)
 				state = State.Attack;
 			else
 			{
-				transform.rotation = Quaternion.FromToRotation(Vector3.forward, toPlayer);
-				GetComponent<Rigidbody>().velocity = transform.forward * 2;
+				tr.rotation = Quaternion.FromToRotation(Vector3.forward, toPlayer);
+				rb.velocity = tr.forward * 2;
 			}
 		}
 		else if (state == State.Attack)
@@ -41,7 +45,7 @@ public class EnemyIntelligence : MonoBehaviour
 		else if (state == State.Back)
 		{
 			if (currentBackTime == 0)
-				GetComponent<Rigidbody>().velocity = -0.5f * transform.forward;
+				rb.velocity = -0.5f * tr.forward;
 
 			currentBackTime += Time.deltaTime;
 
