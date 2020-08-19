@@ -5,55 +5,70 @@ using UnityEngine;
 public class EnemyIntelligence : MonoBehaviour
 {
 	public GameObject EnemyBody;
-	Transform tr;
-	Rigidbody rb;
+	private Transform enemyTr;
+	private Player player;
 
-	State state = State.Idle;
-	Player player;
-	float backTime = 1;
-	float currentBackTime = 1;
+	private State state = State.Idle;
+	private float speed = 3.0f;
+
+	private float backTime = 1;
+	private float attackTime = 0.05f;
+	private float currentTime = 0;
+	private float attackDist = 0.5f;
+
 	void Start()
 	{
 		player = PlayerManager.Instance.Player.GetComponent<Player>();
-		tr = EnemyBody.transform;
-		rb = EnemyBody.GetComponent<Rigidbody>();
+		enemyTr = EnemyBody.transform;
 	}
 
 	void Update()
 	{
-		if (state == State.Idle)
+		switch (state)
 		{
-			if (player != null)
-				state = State.Follow;
+			case State.Idle: HandleIdle(); return;
+			case State.Follow: HandleFollow(); return;
+			case State.Attack: HandleAttack(); return;
+			case State.Back: HandleBack(); return;
 		}
-		else if (state == State.Follow)
+	}
+	private void HandleIdle()
+	{
+		if (player != null)
+			state = State.Follow;
+	}
+	private void HandleFollow()
+	{
+		var toPlayer = player.transform.position - enemyTr.position;
+		if (toPlayer.magnitude < 1f)
+			state = State.Attack;
+		else
 		{
-			var toPlayer = player.transform.position - tr.position;
-			if (toPlayer.magnitude < 1f)
-				state = State.Attack;
-			else
-			{
-				tr.rotation = Quaternion.FromToRotation(Vector3.forward, toPlayer);
-				rb.velocity = tr.forward * 2;
-			}
+			enemyTr.rotation = Quaternion.FromToRotation(Vector3.forward, toPlayer);
+			enemyTr.position += enemyTr.forward * Time.deltaTime * speed;
 		}
-		else if (state == State.Attack)
+	}
+	private void HandleAttack()
+	{
+		enemyTr.position += (attackDist/attackTime) * enemyTr.forward * Time.deltaTime;
+
+		currentTime += Time.deltaTime;
+		if (currentTime >= attackTime)
 		{
+			currentTime = 0;
 			player.Hit(10);
 			state = State.Back;
 		}
-		else if (state == State.Back)
+	}
+	private void HandleBack()
+	{
+		enemyTr.position -= (attackDist / backTime) * enemyTr.forward * Time.deltaTime;
+
+		currentTime += Time.deltaTime;
+		if (currentTime >= backTime)
 		{
-			if (currentBackTime == 0)
-				rb.velocity = -0.5f * tr.forward;
-
-			currentBackTime += Time.deltaTime;
-
-			if (currentBackTime >= backTime)
-			{
-				currentBackTime = 0;
-				state = State.Idle;
-			}
+			currentTime = 0;
+			state = State.Idle;
 		}
 	}
 }
