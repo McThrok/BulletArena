@@ -2,38 +2,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-	public int Hp = 50;
+	public int MaxHp = 50;
 	public int Gold = 10;
-	
+	public GameObject HpBar;
+	public Transform EnemyBody;
+
+	int hp;
+	Slider slider;
+	Transform sliderTr;
 
 	public void Start()
 	{
-		//hpbar
+		hp = MaxHp;
+		slider = HpBar.GetComponent<Slider>();
+		sliderTr = HpBar.transform;
+		UpdateHpBar();
 	}
 	public void Update()
 	{
-		////update hp bar position
-		//if (enemyList.Count > 0)
-		//{
-		//	var target = enemyList[0].transform;
-		//	var wantedPos = Camera.main.WorldToViewportPoint(target.position);
-		//	wantedPos.x *= Screen.width;
-		//	wantedPos.y *= Screen.height;
-		//	var go = GameObject.Find("Gold");
-		//	go.transform.position = wantedPos;
-		//}
+		UpdateHpBar();
+	}
+	private void UpdateHpBar()
+	{
+		var wantedPos = Camera.main.WorldToViewportPoint(EnemyBody.position);
+		wantedPos.x *= Screen.width;
+		wantedPos.y *= Screen.height;
+		sliderTr.position = wantedPos;
+		slider.value = 1.0f * hp / MaxHp;
+		HpBar.SetActive(slider.value != 1);
 	}
 	public void Hit(int damage)
 	{
-		Hp -= damage;
-		Hp = Math.Max(0, Hp);
-		//update hpbar value
-		if (Hp == 0)
+		hp -= damage;
+		hp = Math.Max(0, hp);
+		if (hp == 0)
 			Die();
-
 	}
 
 	private void Die()
