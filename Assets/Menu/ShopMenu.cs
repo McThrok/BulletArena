@@ -9,24 +9,54 @@ public class ShopMenu : MonoBehaviour
 {
 	public Slider MinigunSlider;
 	public Button MinigunButton;
+	private TextMeshProUGUI MinigunButtonText;
+
 	public TextMeshProUGUI GoldText;
 	private void Start()
 	{
-		var sd = StageData.GetInstance();
-		MinigunSlider.value = sd.MinigunLvl / 9.0f;
-		ChangeGold();
+		MinigunButtonText = MinigunButton.GetComponentInChildren<TextMeshProUGUI>();
+		ChangeGold(0);
+
+		UpdateMinigunUI();
 	}
 	public void BuyMinigun()
 	{
-		var sd = StageData.GetInstance();
-		sd.MinigunLvl++;
-		MinigunSlider.value = sd.MinigunLvl / 9.0f;
-		ChangeGold(-10);
+		var ss = ShopState.GetInstance();
+		ss.MinigunLvl++;
+		var price = ss.GetPriceForLevel(ss.MinigunLvl);
+		ChangeGold(-price);
 	}
-	public void ChangeGold(int change=0)
+	public void ChangeGold(int change)
 	{
-		var sd = StageData.GetInstance();
-		sd.Gold += change;
-		GoldText.text = $"Gold {sd.Gold}";
+		var ss = ShopState.GetInstance();
+		ss.Gold += change;
+		GoldText.text = $"Gold {ss.Gold}";
+		UpdateMinigunUI();
+	}
+	private void UpdateMinigunUI()
+	{
+		var ss = ShopState.GetInstance();
+
+		if (ss.MinigunLvl == ss.maxLvl)
+		{
+			MinigunSlider.value = 1;
+			MinigunButton.gameObject.SetActive(false);
+			return;
+		}
+
+		MinigunButtonText.text = ss.GetPriceForLevel(ss.MinigunLvl + 1).ToString();
+		MinigunSlider.value = 1.0f * ss.MinigunLvl / ss.maxLvl;
+
+		var price = ss.GetPriceForLevel(ss.MinigunLvl);
+		if (ss.Gold >= price)
+		{
+			MinigunButton.interactable = true;
+			MinigunButtonText.color = Color.white;
+		}
+		else
+		{
+			MinigunButton.interactable = false;
+			MinigunButtonText.color = Color.white / 2;
+		}
 	}
 }

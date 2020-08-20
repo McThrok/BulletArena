@@ -12,12 +12,11 @@ public class WeaponManager : MonoBehaviour
 	}
 	public Weapon GetWeapon(Transform parent)
 	{
-		var sd = StageData.GetInstance();
+		var ss = ShopState.GetInstance();
 
 		var minigunGO = Instantiate(Minigun, parent);
 		var minigun = minigunGO.GetComponent<Minigun>();
-		minigun.Level = sd.MinigunLvl;
-		sd.MinigunLvl++;
+		minigun.Level = ss.MinigunLvl;
 
 		return minigun;
 	}

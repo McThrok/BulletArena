@@ -45,7 +45,7 @@ public class Enemy : MonoBehaviour
 
 	private void Die()
 	{
-		StageData.GetInstance().Gold += Gold;
+		ShopState.GetInstance().Gold += Gold;
 		Destroy(this.gameObject);
 	}
 }

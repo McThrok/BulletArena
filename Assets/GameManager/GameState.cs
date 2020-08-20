@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GameState
 {
-    public MenuState MenuState = MenuState.Start;
-    public int LevelNumber = 1;
+	public MenuState MenuState = MenuState.Start;
+    public int LevelNumber = 0;
 
     private GameState() {}
     private static GameState instance;

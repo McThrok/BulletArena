@@ -1455,6 +1455,7 @@ GameObject:
   - component: {fileID: 2058824216}
   - component: {fileID: 2058824218}
   - component: {fileID: 2058824219}
+  - component: {fileID: 2058824220}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1501,11 +1502,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e286d0d684f1b1418636b7b0e36e98a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Levels:
+  levels:
   - {fileID: 11400000, guid: cb38cec3b73d87c4daf94d9bf300d190, type: 2}
   - {fileID: 11400000, guid: 40c055304f97ac942a2fee4b016bdaf3, type: 2}
   - {fileID: 11400000, guid: ee7086776cf735a4ca07db6bd25e1674, type: 2}
   enemy: {fileID: 4371357512002890190, guid: 34e5a3f564e62424ab25a09d15808482, type: 3}
+  spawner: {fileID: 2058824220}
 --- !u!114 &2058824219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1519,6 +1521,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Minigun: {fileID: 7186605262604515054, guid: e354919db1ee61f48a41940e54435b3d, type: 3}
+--- !u!114 &2058824220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058824215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d6671af2d336d245a7c33f7853d7899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &391037404999141474
 PrefabInstance:
   m_ObjectHideFlags: 0

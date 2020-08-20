@@ -17,6 +17,6 @@ public class Gold : MonoBehaviour
 
     void Update()
     {
-        text.text = $"Gold: {StageData.GetInstance().Gold}";
+        text.text = $"Gold: {ShopState.GetInstance().Gold}";
     }
 }
