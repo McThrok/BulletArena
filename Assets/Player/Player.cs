@@ -7,20 +7,18 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
 	[SerializeField] Transform target;
-	[SerializeField] GameObject bullet;
-	[SerializeField] GameObject weapon;
 	[SerializeField] GameObject hpBar;
 
 	Slider hpSlider;
 
-	GameObject a;
+	List<Weapon> weapons;
 	float shotTime = 0.1f;
 	float currentShotTime = 0;
 	int hp = 50;
 	int maxHp = 50;
 	void Start()
 	{
-		a = WeaponManager.Instance.GetWeapon(transform).gameObject;
+		weapons = WeaponManager.Instance.GetWeapons(transform);
 		hpSlider = hpBar.GetComponent<Slider>();
 		hpSlider.value = 1;
 		maxHp = hp;
@@ -36,7 +34,9 @@ public class Player : MonoBehaviour
 	}
 	void Movement()
 	{
-		transform.rotation = Quaternion.FromToRotation(Vector3.forward, target.position - transform.position);
+		var toTarget = target.position - transform.position;
+		toTarget.y = 0;
+		transform.rotation = Quaternion.FromToRotation(Vector3.forward, toTarget);
 
 		var moveDir = Vector3.zero;
 
@@ -61,13 +61,8 @@ public class Player : MonoBehaviour
 
 	void Shoot()
 	{
-		currentShotTime -= Time.deltaTime;
-		if (currentShotTime <= 0 && Input.GetMouseButton(0))
-		{
-			currentShotTime += shotTime;
-			a.GetComponent<Minigun>().Shoot();
-		}
-		currentShotTime = Mathf.Max(currentShotTime, 0);
+		foreach (var weapon in weapons)
+			weapon.Shoot();
 	}
 	public void Hit(int damage)
 	{

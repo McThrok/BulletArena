@@ -44,10 +44,10 @@ public class ShopMenu : MonoBehaviour
 			return;
 		}
 
-		MinigunButtonText.text = ss.GetPriceForLevel(ss.MinigunLvl + 1).ToString();
+		var price = ss.GetPriceForLevel(ss.MinigunLvl+1);
+		MinigunButtonText.text = price.ToString();
 		MinigunSlider.value = 1.0f * ss.MinigunLvl / ss.maxLvl;
 
-		var price = ss.GetPriceForLevel(ss.MinigunLvl);
 		if (ss.Gold >= price)
 		{
 			MinigunButton.interactable = true;

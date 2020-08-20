@@ -47,5 +47,6 @@ public class Enemy : MonoBehaviour
 	{
 		ShopState.GetInstance().Gold += Gold;
 		Destroy(this.gameObject);
+		this.gameObject.SetActive(false);//to avoid mutible deaths
 	}
 }

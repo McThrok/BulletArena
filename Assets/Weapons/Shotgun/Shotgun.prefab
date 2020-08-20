@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7186605262604515054
+--- !u!1 &2308819393218032638
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 462803780281813133}
-  - component: {fileID: 3493485829374694397}
+  - component: {fileID: 5034274514613194141}
+  - component: {fileID: -1307698990473009683}
   m_Layer: 0
-  m_Name: Minigun
+  m_Name: Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &462803780281813133
+--- !u!4 &5034274514613194141
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7186605262604515054}
+  m_GameObject: {fileID: 2308819393218032638}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,18 +31,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3493485829374694397
+--- !u!114 &-1307698990473009683
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7186605262604515054}
+  m_GameObject: {fileID: 2308819393218032638}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 229fb8936ac493c4eb5dba5f8f1de67b, type: 3}
+  m_Script: {fileID: 11500000, guid: 467cdd6bdc40151439a6fe7210084583, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Level: 0
-  singleGun: {fileID: 759604644627724712, guid: 70ddbc5f0e8fcf047b2cdd164279152d, type: 3}
-  shotTime: 0.2
+  singleGun: {fileID: 3511933432310846987, guid: ad7d920ed96e14f4bb4d9940c0a402ae, type: 3}
+  shotTime: 0.75

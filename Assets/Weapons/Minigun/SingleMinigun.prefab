@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 759604644627724712}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
   - {fileID: 1999699515311802360}
   m_Father: {fileID: 0}
@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee5b9d5656448db4e891b3a7f085c42f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bullet: {fileID: 9222574696292956809, guid: 62e65e92db4ff0846a1914c4a7ff7cf2, type: 3}
   Level: 1
+  Bullet: {fileID: 9222574696292956809, guid: 62e65e92db4ff0846a1914c4a7ff7cf2, type: 3}
 --- !u!1001 &8012104145160196085
 PrefabInstance:
   m_ObjectHideFlags: 0

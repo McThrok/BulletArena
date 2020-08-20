@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class WeaponPart : LevelWeapon
+public abstract class WeaponPart : Weapon
 {
 	protected List<Color> Colors;
 	
@@ -17,7 +17,4 @@ public abstract class WeaponPart : LevelWeapon
 
 		base.Start();
 	}
-
-	public abstract void Shoot();
-
 }

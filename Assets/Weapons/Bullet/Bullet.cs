@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour
 {
 	void Start()
 	{
-		GetComponent<Rigidbody>().velocity = transform.forward  * 25f;
+		GetComponent<Rigidbody>().velocity = transform.forward  * 15f;
 		Destroy(this.gameObject, 3.0f);
 	}
 }

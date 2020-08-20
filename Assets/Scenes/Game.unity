@@ -402,8 +402,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1076743056}
-  bullet: {fileID: 9222574696292956809, guid: 62e65e92db4ff0846a1914c4a7ff7cf2, type: 3}
-  weapon: {fileID: 7186605262604515054, guid: e354919db1ee61f48a41940e54435b3d, type: 3}
   hpBar: {fileID: 1206468499}
 --- !u!1 &502915289
 GameObject:
@@ -1521,6 +1519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Minigun: {fileID: 7186605262604515054, guid: e354919db1ee61f48a41940e54435b3d, type: 3}
+  Shotgun: {fileID: 2308819393218032638, guid: 0495be278824ade46bee8ddcdf3ce869, type: 3}
 --- !u!114 &2058824220
 MonoBehaviour:
   m_ObjectHideFlags: 0

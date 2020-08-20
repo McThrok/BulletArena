@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class LevelWeapon : MonoBehaviour
+public abstract class Weapon : MonoBehaviour
 {
 	private int level;
 	public int Level;
 	protected virtual void Start()
 	{
-	
 		CheckLevel();
 	}
 
@@ -26,4 +25,6 @@ public abstract class LevelWeapon : MonoBehaviour
 	}
 
 	protected abstract void UpdateLevel();
+	public abstract void Shoot();
 }
+

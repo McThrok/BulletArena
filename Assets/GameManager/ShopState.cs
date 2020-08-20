@@ -7,6 +7,7 @@ public class ShopState
 {
 	public int Gold = 0;
 	public int MinigunLvl = 1;
+	public int ShotgunLvl = 1;
 
 	[HideInInspector] public readonly int maxLvl = 9;
 	[SerializeField] private const int basePrice = -15;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
-public class Minigun : Weapon
+public class Shotgun : Weapon
 {
 	[SerializeField] GameObject singleGun;
 	List<int> Counts;
@@ -14,7 +14,7 @@ public class Minigun : Weapon
 
 	protected override void Start()
 	{
-		Counts = new List<int> { 1, 1, 1, 2, 2, 2, 3, 3, 3 };
+		Counts = new List<int> { 3, 3, 3, 6, 6, 6, 9, 9, 9 };
 		Levels = new List<int> { 1, 2, 3, 2, 3, 4, 3, 4, 5 };
 	}
 	public override void Shoot()
@@ -23,32 +23,30 @@ public class Minigun : Weapon
 		if (currentShotTime <= 0 && Input.GetMouseButton(0))
 		{
 			currentShotTime += shotTime;
-			currentShotTime = Mathf.Max(currentShotTime, 0);
 			foreach (var weapon in GetComponentsInChildren<WeaponPart>())
 				weapon.Shoot();
 		}
+		currentShotTime = Mathf.Max(currentShotTime, 0);
 	}
 
 	protected override void UpdateLevel()
 	{
-		var guns = GetComponentsInChildren<SingleMinigun>();
+		var guns = GetComponentsInChildren<SingleShotgun>();
 
 		foreach (var gun in guns)
 			Destroy(gun.gameObject);
 
 		int n = Counts[Level - 1];
 		int lvl = Levels[Level - 1];
-		float singleAngle = 180.0f / 5;
+		float singleAngle = 55 - n * 5 ;
 
 		for (int i = 0; i < n; i++)
 		{
 			var angle = i * singleAngle - (n - 1) * singleAngle / 2;
-			var position = Quaternion.Euler(0, angle, 0) * (transform.forward * 0.5f);
-			//Debug.Log(transform.forward);
-			//Debug.Log(angle);
-			//Debug.Log(position);
-			var gun = Instantiate(singleGun, transform.position + position, transform.rotation, transform);
-			gun.GetComponent<SingleMinigun>().Level = lvl;
+			var position = Quaternion.Euler(0, angle, 0) * transform.forward * 0.5f;
+			var rotation = transform.rotation * Quaternion.Euler(0, angle, 0);
+			var gun = Instantiate(singleGun, transform.position + position, rotation, transform);
+			gun.GetComponent<SingleShotgun>().Level = lvl;
 		}
 	}
 }
