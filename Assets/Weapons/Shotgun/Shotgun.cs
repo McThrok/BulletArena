@@ -38,7 +38,7 @@ public class Shotgun : Weapon
 
 		int n = Counts[Level - 1];
 		int lvl = Levels[Level - 1];
-		float singleAngle = 55 - n * 5 ;
+		float singleAngle = 45 - n * 5 ;
 
 		for (int i = 0; i < n; i++)
 		{

@@ -11,13 +11,28 @@ public class ShopMenu : MonoBehaviour
 	public Button MinigunButton;
 	private TextMeshProUGUI MinigunButtonText;
 
+	public Slider ShotgunSlider;
+	public Button ShotgunButton;
+	private TextMeshProUGUI ShotgunButtonText;
+
 	public TextMeshProUGUI GoldText;
 	private void Start()
 	{
 		MinigunButtonText = MinigunButton.GetComponentInChildren<TextMeshProUGUI>();
+		ShotgunButtonText = ShotgunButton.GetComponentInChildren<TextMeshProUGUI>();
 		ChangeGold(0);
-
+	}
+	private void UpdateUI()
+	{
 		UpdateMinigunUI();
+		UpdateShotgunUI();
+	}
+	public void ChangeGold(int change)
+	{
+		var ss = ShopState.GetInstance();
+		ss.Gold += change;
+		GoldText.text = $"Gold {ss.Gold}";
+		UpdateUI();
 	}
 	public void BuyMinigun()
 	{
@@ -26,12 +41,12 @@ public class ShopMenu : MonoBehaviour
 		var price = ss.GetPriceForLevel(ss.MinigunLvl);
 		ChangeGold(-price);
 	}
-	public void ChangeGold(int change)
+	public void BuyShotgun()
 	{
 		var ss = ShopState.GetInstance();
-		ss.Gold += change;
-		GoldText.text = $"Gold {ss.Gold}";
-		UpdateMinigunUI();
+		ss.ShotgunLvl++;
+		var price = ss.GetPriceForLevel(ss.ShotgunLvl);
+		ChangeGold(-price);
 	}
 	private void UpdateMinigunUI()
 	{
@@ -44,7 +59,7 @@ public class ShopMenu : MonoBehaviour
 			return;
 		}
 
-		var price = ss.GetPriceForLevel(ss.MinigunLvl+1);
+		var price = ss.GetPriceForLevel(ss.MinigunLvl + 1);
 		MinigunButtonText.text = price.ToString();
 		MinigunSlider.value = 1.0f * ss.MinigunLvl / ss.maxLvl;
 
@@ -57,6 +72,32 @@ public class ShopMenu : MonoBehaviour
 		{
 			MinigunButton.interactable = false;
 			MinigunButtonText.color = Color.white / 2;
+		}
+	}
+	private void UpdateShotgunUI()
+	{
+		var ss = ShopState.GetInstance();
+
+		if (ss.ShotgunLvl == ss.maxLvl)
+		{
+			ShotgunSlider.value = 1;
+			ShotgunButton.gameObject.SetActive(false);
+			return;
+		}
+
+		var price = ss.GetPriceForLevel(ss.ShotgunLvl + 1);
+		ShotgunButtonText.text = price.ToString();
+		ShotgunSlider.value = 1.0f * ss.ShotgunLvl / ss.maxLvl;
+
+		if (ss.Gold >= price)
+		{
+			ShotgunButton.interactable = true;
+			ShotgunButtonText.color = Color.white;
+		}
+		else
+		{
+			ShotgunButton.interactable = false;
+			ShotgunButtonText.color = Color.white / 2;
 		}
 	}
 }

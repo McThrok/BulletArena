@@ -7,10 +7,10 @@ public class ShopState
 {
 	public int Gold = 0;
 	public int MinigunLvl = 1;
-	public int ShotgunLvl = 1;
+	public int ShotgunLvl = 0;
 
 	[HideInInspector] public readonly int maxLvl = 9;
-	[SerializeField] private const int basePrice = -15;
+	[SerializeField] private const int basePrice = 0;
 	[SerializeField] private const int stepBase = 10;
 	[SerializeField] private const int stepIncrease = 5;
 
@@ -25,7 +25,7 @@ public class ShopState
 
 	public int GetPriceForLevel(int lvl)
 	{
-		lvl = Mathf.Clamp(lvl, 1, maxLvl);
+		lvl = Mathf.Clamp(lvl, 0, maxLvl);
 		return basePrice + (2 * stepBase + (lvl - 1) * stepIncrease) * lvl / 2;
 	}
 }
