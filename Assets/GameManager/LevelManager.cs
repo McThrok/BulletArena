@@ -18,6 +18,12 @@ public class LevelManager : MonoBehaviour
 	private float currentSpawnTime = 0;
 	private List<GameObject> enemyList = new List<GameObject>();
 
+	public static LevelManager Instance;
+	private void Awake()
+	{
+		Instance = this;
+	}
+
 	void Start()
 	{
 		player = PlayerManager.Instance.Player.GetComponent<Player>();
@@ -43,7 +49,12 @@ public class LevelManager : MonoBehaviour
 
 		enemyList = enemyList.Where(x => x != null).ToList();
 		if (enemyList.Count == 0 && enemiesToSpawn == 0)
-			EndLevel(MenuState.Shop);
+		{
+			if (GameState.GetInstance().LevelNumber == levels.Count)
+				EndLevel(MenuState.Victor);
+			else
+				EndLevel(MenuState.Shop);
+		}
 	}
 
 	public void LoadNextLevel()

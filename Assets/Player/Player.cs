@@ -75,5 +75,6 @@ public class Player : MonoBehaviour
 	private void Die()
 	{
 		Destroy(this.gameObject);
+		LevelManager.Instance.EndLevel(MenuState.Defeat);
 	}
 }

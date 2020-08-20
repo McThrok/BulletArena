@@ -226,6 +226,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: DefeatMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 2990405362500835970, guid: 65e7e6353446b764e9ef79d70d737ad1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1120018047}
+    - target: {fileID: 2990405362500835970, guid: 65e7e6353446b764e9ef79d70d737ad1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ReturToMainMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 4727740083876724476, guid: 65e7e6353446b764e9ef79d70d737ad1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1133,8 +1141,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1120018047}
-        m_TargetAssemblyTypeName: GameMenu, Assembly-CSharp
+      - m_Target: {fileID: 1522665043}
+        m_TargetAssemblyTypeName: ShopMenu, Assembly-CSharp
         m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
@@ -3700,6 +3708,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1120018047}
+    - target: {fileID: 2990405362500835970, guid: 65e7e6353446b764e9ef79d70d737ad1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ReturToMainMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 4727740083876724476, guid: 65e7e6353446b764e9ef79d70d737ad1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

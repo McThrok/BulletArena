@@ -22,6 +22,10 @@ public class ShopMenu : MonoBehaviour
 		ShotgunButtonText = ShotgunButton.GetComponentInChildren<TextMeshProUGUI>();
 		ChangeGold(0);
 	}
+	public void StartGame()
+	{
+		SceneManager.LoadScene("Game");
+	}
 	private void UpdateUI()
 	{
 		UpdateMinigunUI();

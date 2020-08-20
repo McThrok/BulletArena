@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class ShopState
 {
-	public int Gold = 0;
-	public int MinigunLvl = 1;
-	public int ShotgunLvl = 0;
+	public int Gold;
+	public int MinigunLvl;
+	public int ShotgunLvl;
 
 	[HideInInspector] public readonly int maxLvl = 9;
 	[SerializeField] private const int basePrice = 0;
@@ -27,5 +27,11 @@ public class ShopState
 	{
 		lvl = Mathf.Clamp(lvl, 0, maxLvl);
 		return basePrice + (2 * stepBase + (lvl - 1) * stepIncrease) * lvl / 2;
+	}
+	public void Reset()
+	{
+		Gold = 0;
+		MinigunLvl = 1;
+		ShotgunLvl = 0;
 	}
 }

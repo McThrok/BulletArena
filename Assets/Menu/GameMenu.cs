@@ -37,6 +37,7 @@ public class GameMenu : MonoBehaviour
 
 	public void StartGame()
 	{
+		GameState.GetInstance().Reset();
 		SceneManager.LoadScene("Game");
 	}
 	public void ReturToMainMenu()
