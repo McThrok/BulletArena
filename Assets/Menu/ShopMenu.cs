@@ -5,15 +5,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Menu : MonoBehaviour
+public class ShopMenu : MonoBehaviour
 {
 	public Slider MinigunSlider;
 	public Button MinigunButton;
 	public TextMeshProUGUI GoldText;
-	public void StartLevel()
-	{
-		SceneManager.LoadScene("Game");
-	}
 	private void Start()
 	{
 		var sd = StageData.GetInstance();

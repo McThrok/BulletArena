@@ -40,8 +40,13 @@ public class StageManager : MonoBehaviour
 
 		enemyList = enemyList.Where(x => x != null).ToList();
 		if (enemyList.Count == 0 && enemiesToSpawn == 0)
-			SceneManager.LoadScene("ShopMenu");
+			EndLevel();
 
+	}
+	private void EndLevel()
+	{
+		GameState.GetInstance().MenuState = MenuState.Shop;
+		SceneManager.LoadScene("Menu");
 	}
 	Vector3 GetSpawnPosition()
 	{
