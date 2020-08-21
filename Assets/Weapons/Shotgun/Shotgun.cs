@@ -8,6 +8,7 @@ public class Shotgun : Weapon
 	[SerializeField] GameObject singleGun;
 	List<int> Counts;
 	List<int> Levels;
+	List<int> Damage;
 
 	[SerializeField] private float shotTime;
 	private float currentShotTime;
@@ -16,6 +17,7 @@ public class Shotgun : Weapon
 	{
 		Counts = new List<int> { 3, 3, 3, 6, 6, 6, 9, 9, 9 };
 		Levels = new List<int> { 1, 2, 3, 2, 3, 4, 3, 4, 5 };
+		Damage = new List<int> { 10, 15, 20, 25, 30 };
 	}
 	public override void Shoot()
 	{
@@ -38,7 +40,8 @@ public class Shotgun : Weapon
 
 		int n = Counts[Level - 1];
 		int lvl = Levels[Level - 1];
-		float singleAngle = 45 - n * 5 ;
+		int dmg = Damage[lvl - 1];
+		float singleAngle = 35 - n * 5;
 
 		for (int i = 0; i < n; i++)
 		{
@@ -46,7 +49,9 @@ public class Shotgun : Weapon
 			var position = Quaternion.Euler(0, angle, 0) * transform.forward * 0.5f;
 			var rotation = transform.rotation * Quaternion.Euler(0, angle, 0);
 			var gun = Instantiate(singleGun, transform.position + position, rotation, transform);
-			gun.GetComponent<SingleShotgun>().Level = lvl;
+			var ss = gun.GetComponent<SingleShotgun>();
+			ss.Level = lvl;
+			ss.Damage = dmg;
 		}
 	}
 }
