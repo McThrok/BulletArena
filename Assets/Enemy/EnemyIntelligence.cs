@@ -48,6 +48,7 @@ public class EnemyIntelligence : MonoBehaviour
 	private void HandleFollow()
 	{
 		var toPlayer = playerPos - enemyTr.position;
+		toPlayer.y = 0;
 		enemyTr.rotation = Quaternion.FromToRotation(Vector3.forward, toPlayer);
 
 		if (toPlayer.magnitude < 2f)
@@ -57,7 +58,9 @@ public class EnemyIntelligence : MonoBehaviour
 	}
 	private void HandleAttack()
 	{
-		var dist = attackDist + (playerPos - enemyTr.position).magnitude;
+		var toPlayer = playerPos - enemyTr.position;
+		toPlayer.y = 0;
+		var dist = attackDist + toPlayer.magnitude;
 		enemyTr.position += (dist / attackTime) * enemyTr.forward * Time.deltaTime;
 
 		currentTime += Time.deltaTime;

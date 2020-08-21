@@ -1504,7 +1504,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cb38cec3b73d87c4daf94d9bf300d190, type: 2}
   - {fileID: 11400000, guid: 40c055304f97ac942a2fee4b016bdaf3, type: 2}
   - {fileID: 11400000, guid: ee7086776cf735a4ca07db6bd25e1674, type: 2}
-  enemy: {fileID: 4371357512002890190, guid: 34e5a3f564e62424ab25a09d15808482, type: 3}
+  enemy: {fileID: 8509509741459819656, guid: 67100c25bb3a0304eb8ec04d27a22ce0, type: 3}
   spawner: {fileID: 2058824220}
 --- !u!114 &2058824219
 MonoBehaviour:
