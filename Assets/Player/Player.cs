@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
 		weapons = WeaponManager.Instance.GetWeapons(transform);
 		hpSlider = hpBar.GetComponent<Slider>();
 		hpSlider.value = 1;
-		maxHp = hp;
+		hp = maxHp;
 	}
 
 	void Update()
@@ -49,14 +49,8 @@ public class Player : MonoBehaviour
 		if (Input.GetKey(KeyCode.S))
 			moveDir += Vector3.back;
 
-		if (moveDir.sqrMagnitude == 0)
-			return;
-
 		float speed = 12f;
-		var newPos = transform.position + moveDir.normalized * speed * Time.deltaTime;
-		newPos.x = Mathf.Clamp(newPos.x, -19.5f, 19.5f);
-		newPos.z = Mathf.Clamp(newPos.z, -19.5f, 19.5f);
-		transform.position = newPos;
+		GetComponent<Rigidbody>().velocity = moveDir.normalized * speed;
 	}
 
 	void Shoot()
