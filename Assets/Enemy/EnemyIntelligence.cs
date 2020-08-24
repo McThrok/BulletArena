@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyIntelligence : MonoBehaviour
 {
@@ -49,12 +50,14 @@ public class EnemyIntelligence : MonoBehaviour
 	{
 		var toPlayer = playerPos - enemyTr.position;
 		toPlayer.y = 0;
-		enemyTr.rotation = Quaternion.FromToRotation(Vector3.forward, toPlayer);
+		//enemyTr.rotation = Quaternion.FromToRotation(Vector3.forward, toPlayer);
+
 
 		if (toPlayer.magnitude < 2f)
 			state = State.Attack;
 		else
-			enemyTr.position += enemyTr.forward * Time.deltaTime * speed;
+		GetComponent<NavMeshAgent>().SetDestination(playerPos);
+			//enemyTr.position += enemyTr.forward * Time.deltaTime * speed;
 	}
 	private void HandleAttack()
 	{
