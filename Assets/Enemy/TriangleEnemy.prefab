@@ -318,6 +318,7 @@ GameObject:
   - component: {fileID: 1661248117715044376}
   - component: {fileID: 1212230722165945028}
   - component: {fileID: 108716121505421380}
+  - component: {fileID: 6412905413020779763}
   m_Layer: 0
   m_Name: TriangleEnemy
   m_TagString: Untagged
@@ -353,7 +354,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 506c6150f8682ca48903ef176b6be832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyBody: {fileID: 7571587513141014998}
+  EnemyBody: {fileID: 0}
+  rotationSpeed: 10
+  FollowDist: 6
+  FollowMinOffset: -3
+  PrepareMaxOffset: 3.5
+  attackDir: {x: 0, y: 0, z: 0}
 --- !u!114 &1212230722165945028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,13 +383,13 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8509509741459819656}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 15
-  m_Acceleration: 8
+  m_Speed: 4
+  m_Acceleration: 1000
   avoidancePriority: 50
-  m_AngularSpeed: 220
+  m_AngularSpeed: 1000
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -392,6 +398,25 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!95 &6412905413020779763
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8509509741459819656}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 11285029be1291b4b82cb5a64c30076c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &2156345748632394262
 PrefabInstance:
   m_ObjectHideFlags: 0

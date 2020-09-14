@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30cc287f121a06c489eba8f335c354d5, type: 3}
   m_Name: Level0
   m_EditorClassIdentifier: 
-  SpawnTime: 3
-  EnemyCount: 3
+  SpawnTime: 0.5
+  EnemyCount: 1
   Comment: 

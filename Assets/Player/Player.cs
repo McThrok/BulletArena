@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
 	float shotTime = 0.1f;
 	float currentShotTime = 0;
 	int hp = 50;
-	int maxHp = 50;
+	int maxHp = 5000;
 	void Start()
 	{
 		weapons = WeaponManager.Instance.GetWeapons(transform);
