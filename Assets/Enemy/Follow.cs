@@ -8,23 +8,28 @@ public class Follow : StateMachineBehaviour
 {
 	private bool rotated;
 	private Vector3 startForward;
-	private float current;
+	[SerializeField] private float speed;
+	[SerializeField] private float stopPlayerRange;
+	[SerializeField] private float destinationRange;
+	[SerializeField] private float stopDestinationRange;
+	[SerializeField] private float angularSpeed;
+
 	private float velocity;
+	private float current;
 
 	private Player player;
 	private EnemyIntelligence enemyInt;
-	private NavMeshAgent navMeshAgent;
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
 		player = PlayerManager.Instance.Player.GetComponent<Player>();
 		enemyInt = animator.GetComponent<EnemyIntelligence>();
-		navMeshAgent = animator.GetComponent<NavMeshAgent>();
 
-		navMeshAgent.updateRotation = false;
-		current = 0;
 		velocity = 0;
+		current = 0;
 		rotated = false;
-		startForward = navMeshAgent.transform.forward;
+		startForward = enemyInt.transform.forward;
+
+		enemyInt.attackDir = new Vector3(1, 0, 0);
 
 		animator.SetBool("playerInRange", false);
 	}
@@ -32,34 +37,23 @@ public class Follow : StateMachineBehaviour
 	override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
 		var playerPos = player.transform.position;
-		var toPlayer = playerPos - animator.transform.position;
+		var toPlayer = playerPos - enemyInt.transform.position;
 
-		var dist = enemyInt.FollowDist + enemyInt.FollowMinOffset;
-		var dest = playerPos + enemyInt.attackDir * dist;
-		var a = navMeshAgent.SetDestination(dest);
-		var b = navMeshAgent.SetDestination(playerPos);
+		//var destination = playerPos + enemyInt.attackDir * destinationRange;
+		var toDestination = toPlayer + enemyInt.attackDir * destinationRange;
 
-		if (!rotated)
-		{
-			var to = navMeshAgent.steeringTarget;// - navMeshAgent.transform.position;
-			var target = Vector2.Angle(new Vector2(startForward.x,startForward.z), new Vector2(to.x, to.z));
+		var target = -Vector2.SignedAngle(new Vector2(startForward.x, startForward.z), new Vector2(toDestination.x, toDestination.z));
+		current = Mathf.SmoothDampAngle(current, target, ref velocity, 1 / angularSpeed);
+		//current = target;
+		enemyInt.transform.forward = Quaternion.Euler(0, current, 0) * startForward;
 
-			//current = Mathf.SmoothDampAngle(current, target, ref velocity, 0.2F);
+		if (Mathf.Abs(current - target) < 0.1)
+			rotated = true;
 
-			navMeshAgent.transform.forward = Quaternion.Euler(0, target, 0) * startForward;
-
-			navMeshAgent.ResetPath();
-
-			//if (Mathf.Abs(current - target) < 1e-5)
-			//rotated = true;
-		}
-		else
-		{
-			var remaining = navMeshAgent.remainingDistance - navMeshAgent.stoppingDistance;
-			if (toPlayer.sqrMagnitude <= dist * dist || remaining < 0.01)
-				animator.SetBool("playerInRange", true);
-			else
-				navMeshAgent.transform.forward = toPlayer;
-		}
+		if (toPlayer.sqrMagnitude <= stopPlayerRange * stopPlayerRange
+			|| toDestination.sqrMagnitude <= stopDestinationRange * stopDestinationRange)
+			animator.SetBool("playerInRange", true);
+		else if (rotated)
+			enemyInt.transform.position += enemyInt.transform.forward * speed * Time.deltaTime;
 	}
 }
